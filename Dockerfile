@@ -4,8 +4,10 @@ FROM python:3.9-slim
 # Set working directory
 WORKDIR /app
 
-# Install dependencies
-RUN pip install --no-cache-dir fastapi uvicorn
+# Install dependencies + curl
+RUN apt-get update && apt-get install -y curl && \
+    pip install --no-cache-dir fastapi uvicorn && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copy project files
 COPY . /app
