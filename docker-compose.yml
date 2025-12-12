@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  staging:
+    build: .
+    ports:
+      - "5000:8000"
+    environment:
+      - APP_ENV=staging
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      retries: 3
+
+  production:
+    build: .
+    ports:
+      - "6000:8000"
+    environment:
+      - APP_ENV=production
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      retries: 3
