@@ -8,9 +8,10 @@ services:
     environment:
       - APP_ENV=staging
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 10s
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 5s
       retries: 3
+      start_period: 5s
 
   production:
     build: .
@@ -19,6 +20,7 @@ services:
     environment:
       - APP_ENV=production
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 10s
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 5s
       retries: 3
+      start_period: 5s
