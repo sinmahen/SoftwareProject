@@ -1,26 +1,62 @@
-version: '3.8'
-
 services:
+  # ==========================================
+  # STAGING ENVIRONMENT
+  # ==========================================
+  # Purpose: Testing new features before production
+  # URL: http://localhost:5000
+  # ==========================================
   staging:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${PROJECT_NAME:-calculator-api}-staging
     ports:
       - "5000:8000"
     environment:
-      - APP_ENV=staging
+      - APP_ENV=staging              
+      - APP_NAME=${PROJECT_NAME:-CalculatorAPI}-STAGING
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
-      interval: 5s
+      interval: 30s
+      timeout: 10s
       retries: 3
-      start_period: 5s
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - app-network
 
+
+  # ==========================================
+  # PRODUCTION ENVIRONMENT
+  # ==========================================
+  # Purpose: Stable release for end users
+  # URL: http://localhost:6000
+  # ==========================================
   production:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${PROJECT_NAME:-calculator-api}-production
     ports:
       - "6000:8000"
     environment:
       - APP_ENV=production
+      - PORT=8000
+      - APP_NAME=${PROJECT_NAME:-CalculatorAPI}-PRODUCTION
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
-      interval: 5s
+      interval: 30s
+      timeout: 10s
       retries: 3
-      start_period: 5s
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - app-network
+
+
+# ==========================================
+# NETWORKS
+# ==========================================
+networks:
+  app-network:
+    driver: bridge
