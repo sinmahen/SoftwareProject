@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, HTTPException
 from calculator import add, subtract, multiply, divide
 
@@ -5,7 +6,10 @@ app = FastAPI()
 
 @app.get("/health")
 def health():
-    return {"status": "healthy"}
+    return {
+        "status": "healthy",
+        "environment": os.environ.get("APP_ENV", "development")
+    }
 
 @app.get("/add")
 def add_endpoint(a: float, b: float):
