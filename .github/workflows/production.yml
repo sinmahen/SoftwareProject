@@ -1,0 +1,32 @@
+name: Production
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy-production-smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Build containers
+        run: |
+          docker compose build
+
+      - name: Start production
+        run: |
+          docker compose up production -d
+          docker compose ps
+
+      - name: Smoke test production health endpoint
+        run: |
+          sleep 5
+          curl -f http://localhost:6000/health
+
+      - name: Stop containers
+        if: always()
+        run: |
+          docker compose down
