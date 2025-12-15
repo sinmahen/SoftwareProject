@@ -49,7 +49,7 @@ def test_add_nonfunctional_response_time():
 @pytest.mark.parametrize("case", load_cases()["invalid_add_cases"])
 def test_add_functional_invalid_input(case):
     resp = client.get("/add", params={"a": case["a"], "b": case["b"]})
-    assert resp.status_code == 400
+    assert resp.status_code == 422
 
     data = resp.json()
     assert "detail" in data
