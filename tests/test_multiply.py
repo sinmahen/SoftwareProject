@@ -52,4 +52,4 @@ def test_functional_multiply_by_zero(case):
     assert resp.status_code == 200
 
     data = resp.json()
-    assert "detail" in data
+    assert "result" in data
