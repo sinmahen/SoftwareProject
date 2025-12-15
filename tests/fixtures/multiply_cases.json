@@ -1,7 +1,7 @@
 {
   "valid_cases": [
     { "a": 2, "b": 2, "expected": 4 },
-    { "a": 1.2, "b": 4, "expected": 2.4 },
+    { "a": 1.2, "b": 4, "expected": 4.8 },
     { "a": -1, "b": -1, "expected": 1 }
   ],
   "zero_multiplication_cases": [

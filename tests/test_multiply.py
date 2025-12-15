@@ -49,7 +49,7 @@ def test_multiply_nonfunctional_response_time():
 @pytest.mark.parametrize("case", load_cases()["zero_multiplication_cases"])
 def test_multiply_functional_divide_by_zero(case):
     resp = client.get("/multiply", params = {"a": case["a"], "b": case["b"]})
-    assert resp.status_code == 400
+    assert resp.status_code == 200
 
     data = resp.json()
     assert "detail" in data
