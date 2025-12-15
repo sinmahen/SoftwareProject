@@ -1,0 +1,33 @@
+name: Staging
+
+on:
+  push:
+    branches: ["staging"]
+
+jobs:
+  deploy-staging-smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Build containers
+        run: |
+          docker compose build
+
+      - name: Start staging
+        run: |
+          docker compose up staging -d
+          docker compose ps
+
+      - name: Smoke test staging health endpoint
+        run: |
+          # wait a moment for container to become healthy
+          sleep 5
+          curl -f http://localhost:5000/health
+
+      - name: Stop containers
+        if: always()
+        run: |
+          docker compose down

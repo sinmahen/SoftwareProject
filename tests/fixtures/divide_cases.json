@@ -1,0 +1,11 @@
+{
+  "valid_cases": [
+    { "a": 10, "b": 2, "expected": 5 },
+    { "a": 7, "b": 2, "expected": 3.5 },
+    { "a": -9, "b": 3, "expected": -3 }
+  ],
+  "zero_division_cases": [
+    { "a": 10, "b": 0 },
+    { "a": 0, "b": 0 }
+  ]
+}

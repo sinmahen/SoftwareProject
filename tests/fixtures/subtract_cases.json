@@ -1,0 +1,12 @@
+{
+  "valid_subtract_cases": [
+    { "a": 10, "b": 2, "expected": 8 },
+    { "a": 7, "b": 2, "expected": 5 },
+    { "a": -9, "b": 3, "expected": -12 }
+  ],
+  "invalid_subtract_cases": [
+    { "a": "abc", "b": 6 },
+    { "a": 8, "b": null },
+    { "a": "<script>alert('xss')</script>", "b": 1 }
+  ]
+}
